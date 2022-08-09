@@ -1,5 +1,7 @@
 package board.boardspring;
 
+//yoobin branch 생성 완료
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
