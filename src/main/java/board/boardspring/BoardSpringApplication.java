@@ -10,4 +10,5 @@ public class BoardSpringApplication {
 		SpringApplication.run(BoardSpringApplication.class, args);
 	}
 
+	// test
 }
