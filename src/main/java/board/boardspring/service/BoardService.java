@@ -13,12 +13,22 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+
+    // 글 작성
     public void write(Board board) {
 
         boardRepository.save(board);
     }
 
+    // 게시글 처리
     public List<Board> findBoards() {
         return boardRepository.findAll();
+    }
+
+
+
+    public Board boardView(Integer id){
+
+        return boardRepository.findById(id).get();
     }
 }
