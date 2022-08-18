@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -41,5 +42,24 @@ public class BoardController {
         model.addAttribute("board", boardService.boardView(id));
 
         return "view";
+    }
+
+    @GetMapping("modify/{id}")
+    public String modify(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("board", boardService.boardView(id));
+
+        return "modify";
+    }
+
+    @PostMapping("/modify/{id}")
+    public String modifying(@PathVariable("id") Integer id, Board board) {
+
+        Board oldBoard = boardService.boardView(id);
+        oldBoard.setTitle(board.getTitle());
+        oldBoard.setContent(board.getContent());
+
+        boardService.write(oldBoard);
+
+        return "redirect:/list";
     }
 }
