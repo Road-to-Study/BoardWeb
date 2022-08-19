@@ -17,6 +17,8 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    // 게시글 작성
+
     @GetMapping("/write")
     public String write() {
         return "write";
@@ -29,6 +31,8 @@ public class BoardController {
         return "redirect:/";
     }
 
+    // 게시글 목록 보기
+
     @GetMapping("/list")
     public String list(Model model) {
         List<Board> boards = boardService.findBoards();
@@ -37,12 +41,17 @@ public class BoardController {
     }
 
 
+    // 게시글 자세히 보기
+
     @GetMapping("/board/view")
     public String boardView(Model model, Integer id) {
         model.addAttribute("board", boardService.boardView(id));
 
         return "view";
     }
+
+
+    // 게시글 수정
 
     @GetMapping("modify/{id}")
     public String modify(@PathVariable("id") Integer id, Model model) {
@@ -62,4 +71,16 @@ public class BoardController {
 
         return "redirect:/list";
     }
+
+    // 게시글 삭제
+
+    @GetMapping("/delete")
+    public String boardDelete(Integer id){
+
+        boardService.boardDelete(id);
+        return "redirect:/list";
+    }
+
+
+
 }
