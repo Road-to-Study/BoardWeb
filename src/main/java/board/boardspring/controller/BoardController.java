@@ -25,10 +25,14 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String writing(Board board) {
+    public String writing(Board board, Model model) {
 
         boardService.write(board);
-        return "redirect:/";
+
+        model.addAttribute("message","글 작성 완료!");
+        model.addAttribute("Url","/list");
+
+        return "message";
     }
 
     // 게시글 목록 보기
