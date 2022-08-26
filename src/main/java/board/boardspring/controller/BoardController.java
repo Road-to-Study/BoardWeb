@@ -37,8 +37,17 @@ public class BoardController {
     // 게시글 목록 보기
 
     @GetMapping("/list")
-    public String list(Model model, @PageableDefault(page = 0, size= 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Board> boards = boardService.findBoards(pageable);
+    public String list(Model model,
+                       @PageableDefault(page = 0, size= 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                       String searchKeyword) {
+
+        Page<Board> boards;
+        if(searchKeyword == null) {
+            boards = boardService.findBoards(pageable);
+        }else {
+            boards = boardService.search(searchKeyword, pageable);
+        }
+
 
         int curPage = boards.getPageable().getPageNumber() +1;
         int startPage = Math.max(curPage - 4, 1);
