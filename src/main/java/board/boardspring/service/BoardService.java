@@ -32,7 +32,7 @@ public class BoardService {
     // 특정 게시물 불러오기
     public Board boardView(Integer id){
 
-        return boardRepository.findById(id).get();
+        return boardRepository.findById(id).orElse(null);
     }
 
     // 특정 게시글 삭제
@@ -43,9 +43,16 @@ public class BoardService {
     }
 
 
+    // 검색 기능
     public Page<Board> search(String searchKeyword, Pageable pageable) {
 
         return boardRepository.findByTitleContaining(searchKeyword, pageable);
     }
+
+
+
+
+
+
 
 }
