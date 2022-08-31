@@ -2,6 +2,7 @@ package board.boardspring.controller;
 
 import board.boardspring.domain.Board;
 import board.boardspring.service.BoardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,9 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class BoardController {
 
@@ -24,7 +29,15 @@ public class BoardController {
     // 게시글 작성
 
     @GetMapping("/write")
-    public String write() {
+    public String write(Model model) {
+        HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+        String ip = req.getHeader("X-FORWARDED-FOR");
+        if (ip == null)
+            ip = req.getRemoteAddr();
+
+        model.addAttribute("clientIP", ip);
+
+        log.info("User Ip :" + ip);
         return "write";
     }
 
