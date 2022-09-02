@@ -1,7 +1,10 @@
 package board.boardspring.controller;
 
 import board.boardspring.domain.Board;
+import board.boardspring.domain.Member;
+import board.boardspring.repository.MemberRepository;
 import board.boardspring.service.BoardService;
+import board.boardspring.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -113,7 +116,5 @@ public class BoardController {
         boardService.boardDelete(id);
         return "redirect:/list";
     }
-
-
 
 }
