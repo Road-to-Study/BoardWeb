@@ -44,9 +44,13 @@ public class MemberService {
     public boolean logincheck(String ID, String PWD){
 
         boolean success = false;
+        Optional<Member> member = memberRepository.findById(ID);
 
-        if(memberRepository.findById(ID).isPresent()){
-
+        if(member.isPresent()){
+            if(PWD.equals(member.get().getPassword())) {
+                System.out.println(member.get().getPassword());
+                success= true;
+            }
 
         }
 

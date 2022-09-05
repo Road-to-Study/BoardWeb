@@ -37,7 +37,8 @@ public class MemberController {
         String PWD = httpServletRequest.getParameter("login_pwd");
 
         boolean success = memberService.logincheck(ID, PWD);
-        return ID;
+        if(success) return "write";
+        else return "redirect:/";
     }
 
 
