@@ -17,8 +17,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.projectlombok:lombok:1.18.22'
-
-
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//  user
+	//  e3d2bdae-ec6d-4f69-93be-6139ba6c1891
 	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
