@@ -20,7 +20,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -85,8 +84,9 @@ public class BoardController {
         model.addAttribute("board", boardService.boardView(id));
 
         List<Reply> replies = replyService.findReplyByBoardId(id);
-        System.out.println("replies.size() = " + replies.size());
         model.addAttribute("replies", replies);
+        List<Reply> reReplies = replyService.findReplyByBoardId(id);
+        model.addAttribute("reReplies", reReplies);
         return "view";
     }
 
