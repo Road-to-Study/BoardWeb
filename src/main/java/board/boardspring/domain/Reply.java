@@ -12,6 +12,7 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer boardId;
+    private Integer refReplyId;
     private String content;
 
     public Integer getId() {
@@ -29,6 +30,14 @@ public class Reply {
 
     public void setBoardId(Integer boardId) {
         this.boardId = boardId;
+    }
+
+    public Integer getRefReplyId() {
+        return refReplyId;
+    }
+
+    public void setRefReplyId(Integer refReplyId) {
+        this.refReplyId = refReplyId;
     }
 
     public String getContent() {

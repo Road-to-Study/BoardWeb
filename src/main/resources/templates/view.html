@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세 보기</title>
+    <style>
+    .reReply{
+        margin-left : 150px;
+    }
+    </style>
 </head>
 <body>
 
@@ -23,11 +28,27 @@
         </thead>
 
         <tbody>
-        <tr th:each="reply : ${replies}">
+        <tr th:if="${reply.refReplyId == -1}" th:each="reply : ${replies}">
             <td>
                 <p th:text="${reply.content}"></p>
             </td>
-
+            <table>
+                <tbody>
+                <tr th:if="${reReply.refReplyId == reply.id}" th:each="reReply : ${reReplies}">
+                    <td>
+                        <p style="margin: 16px 20px;" th:text="${reReply.content}"></p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <td>
+                <form method="post" action="/reply/write" style="margin: 16px 20px;">
+                    <textarea name="content" cols="30" rows="2"></textarea>
+                    <input type="hidden" name="boardId" th:value="${board.id}">
+                    <input type="hidden" name="refReplyId" th:value="${reply.id}">
+                    <button type="submit">대댓글 작성</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -38,6 +59,7 @@
     <form method="post" action="/reply/write">
         <textarea name="content" cols="30" rows="2"></textarea>
         <input type="hidden" name="boardId" th:value="${board.id}">
+        <input type="hidden" name="refReplyId" th:value="-1">
         <button type="submit">댓글 작성</button>
     </form>
 </div>
