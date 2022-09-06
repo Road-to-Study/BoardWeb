@@ -1,7 +1,9 @@
 package board.boardspring.controller;
 
 import board.boardspring.domain.Board;
+import board.boardspring.domain.Reply;
 import board.boardspring.service.BoardService;
+import board.boardspring.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -25,7 +28,8 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
-
+    @Autowired
+    private ReplyService replyService;
     // 게시글 작성
 
     @GetMapping("/write")
@@ -80,6 +84,9 @@ public class BoardController {
     public String boardView(Model model, Integer id) {
         model.addAttribute("board", boardService.boardView(id));
 
+        List<Reply> replies = replyService.findReplyByBoardId(id);
+        System.out.println("replies.size() = " + replies.size());
+        model.addAttribute("replies", replies);
         return "view";
     }
 
@@ -114,4 +121,10 @@ public class BoardController {
         return "redirect:/list";
     }
 
+
+    @PostMapping("/reply/write")
+    public String writeReply(Reply reply) {
+        replyService.write(reply);
+        return "redirect:/board/view?id=" + reply.getBoardId();
+    }
 }
